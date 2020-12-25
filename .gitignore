@@ -1,4 +1,4 @@
+main
 obj/*
-src/main
 src/.*
 src/obj/*
