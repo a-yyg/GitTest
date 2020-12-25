@@ -1,21 +1,24 @@
 NAME=main
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -I$(INCDIR)
+
+INCDIR=include
+INCFILES=functest.h
 
 SRCDIR=src
-SRCFILES=main.c
+SRCFILES=main.c functest.c
 SRCS=$(SRCFILES:%.c=$(SRCDIR)/%.c)
 
 OBJDIR=obj
 OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
 
 all: $(NAME)
 
-$(OBJDIR)/%.o: $(SRCS)
-	$(CC) -c $< -o $@
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
 	rm -f $(OBJS)
