@@ -2,17 +2,19 @@ NAME=main
 CC=gcc
 CFLAGS=-Wall
 
-CFILES=main.c
+SRCDIR=src
+SRCFILES=main.c
+SRCS=$(SRCFILES:%.c=$(SRCDIR)/%.c)
 
 OBJDIR=obj
-OBJS=$(CFILES:%.c=obj/%.o)
+OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 $(NAME): $(OBJS)
 	$(CC) -o $(NAME) $(OBJS)
 
 all: $(NAME)
 
-$(OBJDIR)/%.o: %.c
+$(OBJDIR)/%.o: $(SRCS)
 	$(CC) -c $< -o $@
 
 clean:
